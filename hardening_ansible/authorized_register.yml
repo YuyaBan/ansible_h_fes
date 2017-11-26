@@ -1,0 +1,18 @@
+- hosts: all
+  become: yes
+  remote_user: hoge
+  tasks:
+    - name: Create ~/.ssh
+      shell: creates=/home/hoge/.ssh mkdir /home/hoge/.ssh
+
+    - name: add Authorizedkeys
+      shell: cat /tmp/id_dsa.pub >> /home/hoge/.ssh/authorized_keys
+
+    - name: chmod 700
+      shell: chmod 700 /home/hoge/.ssh
+
+    - name: chmod 600
+      shell: chmod 600 /home/hoge/.ssh/authorized_keys
+
+    - name: rm dsa_key
+      shell: rm /tmp/id_dsa.pub

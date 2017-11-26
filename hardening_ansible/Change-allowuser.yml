@@ -1,0 +1,22 @@
+- hosts: all
+  become: yes
+  remote_user: hoge
+
+  vars:
+    now_date: "{{ lookup('pipe','date +%m%d%H%M') }}"
+
+  tasks:
+  - name: buckup sshd_config
+    shell: creates=/etc/ssh/sshd_config.org{{now_date}} cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.org{{now_date}}
+
+  - name: Set Allowusers
+    lineinfile:
+      dest=/etc/ssh/sshd_config
+      regexp='^Allowusers .*'
+      line="Allowusers user1 user2 user3 user4 user5 user6 hoge"
+    notify:
+      - Reload SSHD
+
+  handlers:
+  - name: Reload SSHD
+    service: name=sshd state=reloaded

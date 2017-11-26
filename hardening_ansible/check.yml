@@ -1,0 +1,11 @@
+- hosts: web
+  become: yes  #sudoで実行する
+  vars_files:
+    - ./list/check-list-vars.yml
+  tasks:
+  - name: cat
+    shell: creates= echo '{{ item.commands }}' && {{ item.commands }} >> result_`uname -n`.log 2>&1
+    shell: sleep 1
+    with_items:
+      - "{{ commands }}"
+    when: commands

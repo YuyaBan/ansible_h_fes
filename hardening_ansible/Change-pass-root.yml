@@ -1,0 +1,7 @@
+- hosts: all
+  become: yes
+  gather_facts: no
+  
+  tasks:
+    - name: update root pass
+      user: name=root update_password=always password={{ 'passW0rd'|password_hash('sha512') }}

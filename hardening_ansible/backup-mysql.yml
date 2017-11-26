@@ -1,0 +1,12 @@
+- hosts: all
+  gather_facts: False
+  become: yes
+
+  vars:
+    now_date: "{{ lookup('pipe','date +%y%m%d%H%M') }}"
+
+  tasks: 
+    - name: mkdir buckup
+      shell: creates=/tmp/mysqlbackup mkdir /tmp/mysqlbackup
+    
+    - shell: creates=/mysqlbackup/{{now_date}}.dump mysqldump  -u root -p -x --all-databases > /mysqlbackup/{{ now_date }}.dump

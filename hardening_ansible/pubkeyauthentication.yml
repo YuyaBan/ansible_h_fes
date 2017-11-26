@@ -1,0 +1,24 @@
+- hosts: all
+  become: yes
+  remote_user: hoge
+  vars:
+    now_date: "{{ lookup('pipe','date +%m%d%H%M') }}"
+  tasks:
+  - name: buckup sshd_config
+    shell: creates=/etc/ssh/sshd_config.org{{now_date}} cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.org{{now_date}}
+  - name: Set Pubkey yes
+    lineinfile:
+      dest=/etc/ssh/sshd_config
+      regexp='^PubkeyAuthentication .*'
+      line='PubkeyAuthentication yes'
+    notify:
+      - Reload SSHD
+  - name: set authokey
+    lineinfile:
+      dest=/etc/ssh/sshd_config
+      regexp='^#?AuthorizedKeysFile  .*'
+      line='AuthorizedKeysFile  .ssh/authorized_keys'
+
+  handlers:
+  - name: Reload SSHD
+    service: name=sshd state=reloaded

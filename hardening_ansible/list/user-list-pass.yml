@@ -1,0 +1,7 @@
+users:
+  - { name: 'user1', password: "{{ '@hoge1!'|password_hash('sha512') }}" }
+  - { name: 'user2', password: "{{ '@hoge2!'|password_hash('sha512') }}" }
+  - { name: 'user3', password: "{{ '@hoge3!'|password_hash('sha512') }}" }
+  - { name: 'user4', password: "{{ '@hoge4!'|password_hash('sha512') }}" }
+  - { name: 'user5', password: "{{ '@hoge5!'|password_hash('sha512') }}" }  
+  - { name: 'user6', password: "{{ '@hoge6!'|password_hash('sha512') }}" }

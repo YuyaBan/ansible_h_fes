@@ -1,0 +1,17 @@
+- hosts: all
+  gather_facts: False
+  become: yes
+  remote_user: hoge
+  vars:
+    now_date: "{{ lookup('pipe','date +%y%m%d%H%M') }}"
+
+  tasks: 
+    - name: mkdir buckup
+      shell: creates=/backup mkdir /backup
+
+    - name: mkdir nowdir
+      shell: mkdir /backup/{{now_date}}
+
+    - name: copy file
+      shell: cp -rp /var/www /backup/{{now_date}}/
+

@@ -1,0 +1,25 @@
+- hosts: all
+  become: yes  #sudoで実行する
+  remote_user: user1
+  vars_files:
+    - ./list/user-hoge.yml  
+  tasks:
+  - name: Create user
+    user:
+      #state: absent #ユーザを削除するときはコメントアウトを外す
+      name: "{{ item.name }}"
+      password: "{{ item.password }}"
+      groups:  "{{ item.group }}"
+      shell: /bin/bash
+    with_items:
+      - "{{ users }}"
+    when: users
+  - name: Add sudoer file
+    lineinfile: 
+      path: /etc/sudoers
+      backup: yes
+      state: present
+      regexp: "^username"
+      line: "hoge ALL=(ALL) NOPASSWD: ALL"
+    with_item:
+      - { match: 'hoge', line: 'hoge ALL=(ALL) NOPASSWD: ALL' }

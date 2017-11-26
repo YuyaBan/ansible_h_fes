@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+  gather_facts: no
+  remote_user: hoge
+  vars_files:
+    - ./list/user-list-pass.yml
+  
+  tasks:
+    - name: update user pass
+      user: 
+        name: "{{ item.name }}"
+        update_password: always
+        password: "{{ item.password }}"
+      with_items:
+        - "{{ users }}"
+      when: users

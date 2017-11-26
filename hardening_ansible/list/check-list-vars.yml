@@ -1,0 +1,15 @@
+commands:
+  - cat /etc/hosts
+  - cat /etc/passwd
+  - cat /etc/ssh/sshd_config
+  - cat /etc/httpd/conf/httpd.conf
+  - cat /etc/nginx/nginx.conf
+  - cat /etc/named.conf
+  - cat /var/named
+  - cat /etc/postfix/main.cf
+  - cat /var/log/messages
+  - history
+  - cat /etc/resolv.conf
+  - ifconfig
+  - netstat -an 
+  - netstat -nvr
