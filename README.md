@@ -1,0 +1,3 @@
+# ansible_h_fes
+某H大会用に初めて作ったAnsibleのplaybook
+ユーザ作成とか、ユーザパスワードの変更とかsshd_configの編集とかバックアップ用のスクリプトとか
